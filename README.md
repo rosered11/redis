@@ -17,3 +17,7 @@ NVM
 - [link](https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/)
 
 - [link](https://github.com/nvm-sh/nvm#install-script)
+
+Mongo
+
+- [link](https://tutorialedge.net/typescript/typescript-mongodb-beginners-tutorial/)
