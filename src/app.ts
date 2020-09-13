@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express'
 import Product, { IProduct } from './product'
 import bodyParser from 'body-parser'
-import cors from 'cors'
+import cors = require('cors')
 
 class App
 {
@@ -11,7 +11,7 @@ class App
     constructor(appInit: { port: number; mongo: string;}){
         this.app = express()
         this.port = appInit.port
-        this.app.use(cors)
+        this.app.use(cors())
         this.app.use(bodyParser.json())
         this.routes(new ProductController(new Product({ constring: appInit.mongo })))
     }
