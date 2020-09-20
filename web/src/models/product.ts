@@ -1,4 +1,5 @@
 import mongoose = require("mongoose");
+import { setTimeout } from 'timers';
 
 export interface IProduct extends mongoose.Document
 {
@@ -8,8 +9,8 @@ export interface IProduct extends mongoose.Document
 
 class Product
 {
-    //mongodb://root:root@localhost:30500/demo?retryWrites=true&w=majority
-    public context: mongoose.Model<IProduct>;
+    private context: mongoose.Model<IProduct>;
+    public source: string = 'mongo'
     constructor(args: { constring: string;}){
         mongoose.connect(args.constring, (err: any) =>{
             if(err){
@@ -29,6 +30,24 @@ class Product
         })
 
         return mongoose.model<IProduct>("Product", productSchema)
+    }
+
+    async find(){
+        return await this.context.find({})
+    }
+
+    async findBy(key: string){
+        await this.deley(3000)
+        return await this.context.findOne({ "id": key })
+    }
+
+    async insert(data: any){
+        let create = new this.context(data)
+        return await create.save()
+    }
+
+    async deley(ms: number){
+        return new Promise(resolve => setTimeout(resolve, ms))
     }
 }
 

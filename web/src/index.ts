@@ -1,5 +1,5 @@
 import App from './app'
-import { Tedis } from "tedis"
+import Redis from "./redis"
 
 const dbport = '30500'
 const user = 'root:root'
@@ -11,6 +11,6 @@ const redis_port = 6379
 const app = new App({ 
     port: 5000, 
     mongo: `mongodb://${user}@${server}:${dbport}/${dbname}?retryWrites=true&w=majority`,
-    redis: new Tedis({ port: redis_port, host: redis_server}) 
+    redis: new Redis({ port: redis_port, host: redis_server}) 
 })
 app.listen()

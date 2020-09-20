@@ -2,11 +2,13 @@ import { Tedis } from "tedis";
 
 class Redis {
     private redis: Tedis
+    public source: string
     constructor(init: { port: number; host: string;}){
         this.redis = new Tedis({
             port: init.port,
             host: init.host
         });
+        this.source = "redis"
     }
 
     public async set(key: string, data: any){
@@ -14,11 +16,14 @@ class Redis {
     }
 
     public async get(key: string){
-        return await this.redis.get(key)
+        if(this.check(key)){
+            return await this.redis.get(key)
+        }
+        return null
     }
 
-    public async check(key: string){
-        
+    public async check(key: string): Promise<boolean>{
+        return await this.redis.exists(key) > 0
     }
 }
 
