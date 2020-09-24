@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  web:
+    image: rosered/node-redis
+    ports:
+      - 3000:3000
+    depends_on:
+      - redis
+    network_mode: host
+  redis:
+    image: redis:6
+    ports:
+      - 6379:6379
+    network_mode: bridge
